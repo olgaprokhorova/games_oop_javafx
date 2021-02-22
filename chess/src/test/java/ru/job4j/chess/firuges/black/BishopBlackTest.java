@@ -34,16 +34,9 @@ public class BishopBlackTest {
         assertThat(bishopBlack.isDiagonal(bishopBlack.position(), Cell.C3), is(false));
     }
 
-    @Test
-    public void wayWhenIsNoDiagonal() {
+    @Test(expected = ImpossibleMoveException.class)
+    public void wayWhenIsNoDiagonal1() {
         BishopBlack bishopBlack = new BishopBlack(Cell.C1);
-        try {
-            bishopBlack.way(Cell.C3);
-            fail("Expected ImpossibleMoveException");
-        } catch (ImpossibleMoveException ime) {
-            assertThat(ime.getMessage(), containsString(
-                    "Could not way by diagonal from " + bishopBlack.position() + " to " + Cell.C3)
-            );
-        }
+        bishopBlack.way(Cell.C3);
     }
 }

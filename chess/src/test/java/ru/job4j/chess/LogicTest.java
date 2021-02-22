@@ -1,9 +1,7 @@
 package ru.job4j.chess;
 
 import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.black.BishopBlack;
 import ru.job4j.chess.firuges.black.PawnBlack;
@@ -19,27 +17,21 @@ public class LogicTest {
         logic.move(Cell.C1, Cell.H6);
     }
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Test
+    @Test(expected = ImpossibleMoveException.class)
     public void whenImpossibleMoveException() throws FigureNotFoundException, OccupiedCellException {
-        exception.expect(ImpossibleMoveException.class);
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.move(Cell.C1, Cell.H5);
     }
 
-    @Test
+    @Test(expected = FigureNotFoundException.class)
     public void whenFigureNotFoundException() throws FigureNotFoundException, OccupiedCellException {
-        exception.expect(FigureNotFoundException.class);
         Logic logic = new Logic();
         logic.move(Cell.C1, Cell.H6);
     }
 
-    @Test
+    @Test(expected = OccupiedCellException.class)
     public void whenOccupiedCellException() throws FigureNotFoundException, OccupiedCellException {
-        exception.expect(OccupiedCellException.class);
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new PawnBlack(Cell.D2));
